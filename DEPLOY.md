@@ -1,5 +1,7 @@
 # Deploy to Vercel with a free database (Neon)
 
+**Important:** Add **`DATABASE_URL`** (and the other variables below) in **Vercel → Project → Settings → Environment Variables** *before* the build can succeed. If you import the repo first and deploy without them, the build fails with **`P1012` / `Environment variable not found: DATABASE_URL`**. After saving variables, click **Redeploy** on the latest deployment.
+
 ## 1. Neon — free PostgreSQL
 
 1. Create an account at [https://neon.tech](https://neon.tech).
@@ -15,7 +17,7 @@
 
 ## 3. Environment variables (Vercel → Project → Settings → Environment Variables)
 
-Add for **Production** (and Preview if you want):
+Add the same values for **Production** and **Preview** (and **Development** if you use `vercel dev`), or Preview deploys from Git branches will also fail.
 
 | Name | Value |
 |------|--------|
@@ -49,3 +51,7 @@ Copy `.env.example` to `.env` and set `DATABASE_URL` to local Postgres or Neon.
 
 - Do not commit `.env` with production secrets.
 - If the build fails on `db push`, check that `DATABASE_URL` is correct and Neon allows connections from the internet (default).
+
+### Error: `P1012` / `Environment variable not found: DATABASE_URL`
+
+Vercel’s build server does **not** read your local `.env` file. You must set **`DATABASE_URL`** in the Vercel dashboard (see section 3), then **Redeploy**.
