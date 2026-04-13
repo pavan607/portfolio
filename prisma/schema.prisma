@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String   @default("/")
+  createdAt DateTime @default(now())
+}
+
+model Profile {
+  id          String @id
+  name        String
+  title       String
+  email       String
+  phone       String?
+  location    String?
+  linkedinUrl String?
+  githubUrl   String?
+  summary     String
+}
+
+model ExperienceItem {
+  id         String @id @default(cuid())
+  role       String
+  company    String
+  location   String?
+  period     String
+  sortOrder  Int    @default(0)
+  highlights Json
+}
+
+model ProjectItem {
+  id          String @id @default(cuid())
+  title       String
+  client      String?
+  description String
+  highlights  Json
+  sortOrder   Int    @default(0)
+}
+
+model EducationItem {
+  id          String @id @default(cuid())
+  degree      String
+  institution String
+  period      String
+  sortOrder   Int    @default(0)
+}
+
+model SkillCategory {
+  id        String @id @default(cuid())
+  name      String
+  skills    Json
+  sortOrder Int    @default(0)
+}
+
+model Achievement {
+  id        String @id @default(cuid())
+  text      String
+  sortOrder Int    @default(0)
+}
+
+model CareerNote {
+  id        String @id @default(cuid())
+  title     String
+  period    String
+  body      String
+  sortOrder Int    @default(0)
+}
+
+model AdditionalInfo {
+  id        String @id @default(cuid())
+  label     String
+  value     String
+  sortOrder Int    @default(0)
+}
